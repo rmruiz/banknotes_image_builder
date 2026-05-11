@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Function to check if a directory contains a file named "uploaded"
+function has_uploaded() {
+  local dir="$1"
+  [[ -f "$dir/uploaded" ]]
+}
+
+# Get a list of all directories (excluding . and ..)
+shopt -s nullglob  # Allow null globbing for empty directory listing
+directories=(_INSTAGRAM/*)
+shopt -u nullglob
+
+# Loop until a directory without "uploaded" is found
+while true; do
+  # Choose a random directory from the list
+  random_dir="${directories[RANDOM % ${#directories[@]} ]}"
+
+  # Check if the chosen directory doesn't contain "uploaded"
+  if ! has_uploaded "$random_dir"; then
+    # Found a suitable directory, break the loop
+    break
+  fi
+  echo "skipping $random_dir"
+done
+
+# Print the chosen directory
+echo "Random directory: $random_dir"
+echo "touch $random_dir/uploaded"

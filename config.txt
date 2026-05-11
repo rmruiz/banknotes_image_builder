@@ -1,0 +1,26 @@
+1. Instalar Homebrew (https://brew.sh/)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+2. Instalar magick (https://imagemagick.org/)
+brew install imagemagick-full
+
+3. Instalar GNU sed
+brew install gsed
+
+4. Configurar ImageMagick MacOSX fonts
+
+4.a Crear carpeta de configuracion de imagemagick
+mkdir ~/.magick
+
+4.b Copiar Script
+cp _step0_config/imagick_type_gen /tmp/script.pl
+
+4.c Hacer Script ejecutable
+chmod +x /tmp/script.pl
+
+4.d Ejecutar Script localmente y redireccionar output a archivo type.xml en ~/.magick
+/tmp/script.pl > ~/.magick/type.xml
+
+or
+
+find /System/Library/Fonts/Supplemental/ -type f -name '*.*' | /tmp/script.pl -f - > ~/.magick/type.xml
